@@ -1,16 +1,15 @@
-# Project Title: Write your project name here
+# Project Title: TRAIN SEAT AVAILABILITY MANAGEMENT USING LINKED LIST
 
 ## Student Details
-- **Name**: Your Full Name  
-- **PRN**: Your PRN  
-- **Year**: FY/SY/TY/Final Year  
-- **Branch**: Your Branch  
+- **Name**: B S HARISH KUMAR  
+- **PRN**: 24070126045 
+- **Year**: SECOND YEAR 
+- **Branch**: AIML
 
 ---
 
 ## Problem Statement
-Write in 2–3 lines what problem your project solves.  
-Example: "Students often forget their daily timetable. This project shows today's timetable in one click."
+I HAVE CREATED A TRAIN SEAT AVAILABILITY MANAGEMENT USING LINKED LIST TO APPLY MY DSA SKILLS ON IT.
 
 ---
 
