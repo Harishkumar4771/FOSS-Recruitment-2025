@@ -1,0 +1,13 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "C/C++ Runner: Debug Session",
+      "type": "lldb",
+      "request": "launch",
+      "args": [],
+      "cwd": "/Users/bsharishkumar/FOSS_project/FOSS-Recruitment-2025/projects/HARISH_KUMAR",
+      "program": "/Users/bsharishkumar/FOSS_project/FOSS-Recruitment-2025/projects/HARISH_KUMAR/build/Debug/outDebug"
+    }
+  ]
+}
