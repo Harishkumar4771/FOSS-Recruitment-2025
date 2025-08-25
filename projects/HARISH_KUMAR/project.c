@@ -26,4 +26,6 @@ struct train{
     struct coach* coaches;
 
 };
-struct train* createtrain(int seat,int coaches);
+struct train* createtrain(int seat,int coaches){
+    
+}
