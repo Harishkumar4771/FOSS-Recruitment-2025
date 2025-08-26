@@ -98,11 +98,16 @@ void timetable(struct train* t){
         temp=temp->next_s;
     }
 }
-struct train* bookticket(struct train* t,char from[],char to[],int number){
+struct train* bookticket(struct train* t,char* from,char* to,int number){
     struct coaches* temp_c=t->coaches;
     struct seat* temp_s=t->coaches->seats;
     int s=number;
-    while(s>0){
+    while(temp_s->next_s!=NULL && s>0){
+        if(temp_s->avail==true){
+            temp_s->avail=false;
+            int seatno=temp_s->s_no;
+            
+        }
         
     }
 
