@@ -3,6 +3,7 @@
 #include<stdbool.h>
 #include<string.h>
 #include<time.h>
+/*This file contains of all functions and structures required for our project*/
 struct seat{
     int s_no;
     char* from;
@@ -104,7 +105,8 @@ void timetable(struct train* t){
     }
 }
 struct train* bookticket(struct train* t,char* from,char* to,int number){
-    struct coaches* temp_c=t->coaches;
+    FILE *fp=fopen("Passenger_details.txt","a");
+    struct coach* temp_c=t->coaches;
     int s=number;
     while(temp_c!=NULL && s>0){
         struct seat* temp_s=temp_c->seats;
@@ -115,9 +117,105 @@ struct train* bookticket(struct train* t,char* from,char* to,int number){
             int coachno=temp_c->coach_no;
             strcpy(temp_s->from,from);
             strcpy(temp_s->to,to);
-        } 
+            long pnr=generatePNR(t->train_no);
+            printf("-------------Ticket-------------\n");
+            printf("PNR   : %ld\n", pnr);
+            printf("Train : %d\n", t->train_no);
+            printf("Coach : %d\n", temp_c->coach_no);
+            printf("Seat  : %d\n", temp_s->s_no);
+            printf("From  : %s\n", from);
+            printf("To    : %s\n", to);
+            s=s-1;
+            fprintf(fp, "PNR:%ld Train:%d Coach:%d Seat:%d From:%s To:%s\n",
+            pnr, t->train_no, temp_c->coach_no, temp_s->s_no, from, to);
+        }
+        temp_s=temp_s->next_s;
     }
+    temp_c=temp_c->next_c;
         
     }
+    fclose(fp);
+
+}
+void changeboardingpoint(struct train* t,long pnr,char* from2){
+    FILE *fp,*temp;
+    fp=fopen("Passenger details.txt","r");
+    temp=fopen("temp.txt","w");
+    long f_pnr;
+    char* name;
+    char* from;
+    char* to;
+    int coach,seat,found=0;
+    while(fscanf(fp,"PNR:%ld Train:%d Coach:%d Seat:%d From:%s To:%s\n",
+        &f_pnr, &t->train_no, &coach, &seat, from, to) == 6){
+            if(f_pnr==pnr){
+                found=1;
+                fprintf(temp, "PNR:%ld Train:%d Coach:%d Seat:%d From:%s To:%s\n",
+                f_pnr, t->train_no, coach, seat, from2, to);
+                printf("Boarding point changed for PNR %ld → New From: %s\n", pnr, from2);
+
+            }
+            else{
+                fprintf(temp, "PNR:%ld Train:%d Coach:%d Seat:%d From:%s To:%s\n",
+                    f_pnr, t->train_no, coach, seat, from, to);
+            }
+
+    }
+    fclose(fp);
+    fclose(temp);
+    remove("Passenger details.txt");
+    rename("temp.txt","Passenger details.txt");
+    if(!found){
+        printf("PNR Number doesnt exist");
+    }
+
+}
+struct train* cancelticket(struct train* t,long pnr){
+    FILE *fp,*temp;
+    fp=fopen("Passenger details.txt","r");
+    temp=fopen("temp.txt","w");
+    long f_pnr;
+    char* name;
+    char* from;
+    char* to;
+    int coach,seat,found=0;
+    while(fscanf(fp,"PNR:%ld Train:%d Coach:%d Seat:%d From:%s To:%s\n",
+        &f_pnr, &t->train_no, &coach, &seat, from, to) == 6){
+            if(f_pnr==pnr){
+                found=1;
+                struct coach* temp_c = t->coaches;
+            while (temp_c) {
+                if (temp_c->coach_no == coach) {
+                    struct seat* temp_s = temp_c->seats;
+                    while (temp_s) {
+                        if (temp_s->s_no == seat) {
+                            temp_s->avail = true;  
+                            strcpy(temp_s->from, "");
+                            strcpy(temp_s->to, "");
+                            break;
+                        }
+                        temp_s = temp_s->next_s;
+                    }
+                    break;
+                }
+                 
+            }
+                temp_c = temp_c->next_c;
+                printf("Ticket cancelled successfully");
+            }
+            else{
+                fprintf(temp, "PNR:%ld Train:%d Coach:%d Seat:%d From:%s To:%s\n",
+                &f_pnr, &t->train_no, &coach, &seat, &from, &to);
+        }
+    }
+
+    fclose(fp);
+    fclose(temp);
+    remove("Passenger details.txt");
+    rename("temp.txt","Passenger details.txt");
+    if(!found){
+        printf("PNR number not exist");
+    }
+
 
 }
