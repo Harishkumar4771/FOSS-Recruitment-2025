@@ -2,6 +2,7 @@
 #include<stdlib.h>
 #include<stdbool.h>
 #include<string.h>
+#include<time.h>
 struct seat{
     int s_no;
     char* from;
@@ -27,6 +28,10 @@ struct train{
     struct haults* route;
 
 };
+long generatePNR(int train_no){
+    time_t now=NULL;
+    return train_no*100000+now%100000;
+}
 struct train* createtrain(int seat,int coaches){
     struct train* train=(struct train*)malloc(sizeof(struct train));
     if(!train){
@@ -100,14 +105,18 @@ void timetable(struct train* t){
 }
 struct train* bookticket(struct train* t,char* from,char* to,int number){
     struct coaches* temp_c=t->coaches;
-    struct seat* temp_s=t->coaches->seats;
     int s=number;
-    while(temp_s->next_s!=NULL && s>0){
+    while(temp_c!=NULL && s>0){
+        struct seat* temp_s=temp_c->seats;
+        while(temp_s!=NULL && s>0){
         if(temp_s->avail==true){
             temp_s->avail=false;
             int seatno=temp_s->s_no;
-            
-        }
+            int coachno=temp_c->coach_no;
+            strcpy(temp_s->from,from);
+            strcpy(temp_s->to,to);
+        } 
+    }
         
     }
 
