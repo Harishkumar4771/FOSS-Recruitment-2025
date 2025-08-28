@@ -2,12 +2,11 @@
 #include<stdlib.h>
 #include<stdbool.h>
 #include<string.h>
-#include<time.h>
 /*This file contains of all functions and structures required for our project*/
 struct seat{
     int s_no;
-    char* from;
-    char* to;
+    char from[50];
+    char to[50];
     bool avail;
     struct seat* next_s;
 };
@@ -30,8 +29,8 @@ struct train{
 
 };
 long generatePNR(int train_no){
-    time_t now=NULL;
-    return train_no*100000+now%100000;
+
+    return rand()%100000;
 }
 struct train* createtrain(int seat,int coaches){
     struct train* train=(struct train*)malloc(sizeof(struct train));
@@ -53,8 +52,8 @@ struct train* createtrain(int seat,int coaches){
         for(j=1;j<=seat;j++){
             struct seat* s=(struct seat*)malloc(sizeof(struct seat));
             s->s_no=j;
-            s->from='\0';
-            s->to='\0';
+            s->from[0]='\0';
+            s->to[0]='\0';
             s->avail=true;
             s->next_s=NULL;
             if(prevseat==NULL){
@@ -79,7 +78,7 @@ struct train* createtrain(int seat,int coaches){
     return train;
     
 }
-struct haults* addhault(struct train* t,char* name,char* arr,char* dep){
+void addhault(struct train* t,char* name,char* arr,char* dep){
     struct haults* station=(struct haults*)malloc(sizeof(struct haults));
     strcpy(station->name,name);
     strcpy(station->arrival,arr);
@@ -95,7 +94,9 @@ struct haults* addhault(struct train* t,char* name,char* arr,char* dep){
         }
         temp->next_s=station;
     }
+    
 }
+
 void timetable(struct train* t){
     printf("Route of train no %d\n",t->train_no);
     struct haults* temp=t->route;
@@ -135,87 +136,87 @@ struct train* bookticket(struct train* t,char* from,char* to,int number){
         
     }
     fclose(fp);
+    return t;
 
 }
-void changeboardingpoint(struct train* t,long pnr,char* from2){
-    FILE *fp,*temp;
-    fp=fopen("Passenger details.txt","r");
-    temp=fopen("temp.txt","w");
+void changeboardingpoint(struct train* t, long pnr, char* from2) {
+    FILE *fp, *temp;
+    fp = fopen("Passenger_details.txt", "r");
+    temp = fopen("temp.txt", "w");
     long f_pnr;
-    char* name;
-    char* from;
-    char* to;
-    int coach,seat,found=0;
-    while(fscanf(fp,"PNR:%ld Train:%d Coach:%d Seat:%d From:%s To:%s\n",
-        &f_pnr, &t->train_no, &coach, &seat, from, to) == 6){
-            if(f_pnr==pnr){
-                found=1;
-                fprintf(temp, "PNR:%ld Train:%d Coach:%d Seat:%d From:%s To:%s\n",
-                f_pnr, t->train_no, coach, seat, from2, to);
-                printf("Boarding point changed for PNR %ld → New From: %s\n", pnr, from2);
+    int train_no, coach, seat;
+    char from[50], to[50];
+    int found = 0;
 
-            }
-            else{
-                fprintf(temp, "PNR:%ld Train:%d Coach:%d Seat:%d From:%s To:%s\n",
-                    f_pnr, t->train_no, coach, seat, from, to);
-            }
-
+    while (fscanf(fp, "PNR:%ld Train:%d Coach:%d Seat:%d From:%s To:%s\n",
+                  &f_pnr, &train_no, &coach, &seat, from, to) == 6) {
+        if (f_pnr == pnr) {
+            found = 1;
+            fprintf(temp, "PNR:%ld Train:%d Coach:%d Seat:%d From:%s To:%s\n",
+                    f_pnr, train_no, coach, seat, from2, to);
+            printf("Boarding point changed for PNR %ld → New From: %s\n", pnr, from2);
+        } else {
+            fprintf(temp, "PNR:%ld Train:%d Coach:%d Seat:%d From:%s To:%s\n",
+                    f_pnr, train_no, coach, seat, from, to);
+        }
     }
+
     fclose(fp);
     fclose(temp);
-    remove("Passenger details.txt");
-    rename("temp.txt","Passenger details.txt");
-    if(!found){
-        printf("PNR Number doesnt exist");
+    remove("Passenger_details.txt");
+    rename("temp.txt", "Passenger_details.txt");
+    if (!found) {
+        printf("PNR Number doesn’t exist\n");
     }
-
 }
-struct train* cancelticket(struct train* t,long pnr){
-    FILE *fp,*temp;
-    fp=fopen("Passenger details.txt","r");
-    temp=fopen("temp.txt","w");
+
+struct train* cancelticket(struct train* t, long pnr) {
+    FILE *fp, *temp;
+    fp = fopen("Passenger_details.txt", "r");
+    temp = fopen("temp.txt", "w");
     long f_pnr;
-    char* name;
-    char* from;
-    char* to;
-    int coach,seat,found=0;
-    while(fscanf(fp,"PNR:%ld Train:%d Coach:%d Seat:%d From:%s To:%s\n",
-        &f_pnr, &t->train_no, &coach, &seat, from, to) == 6){
-            if(f_pnr==pnr){
-                found=1;
-                struct coach* temp_c = t->coaches;
+    int train_no, coach, seat;
+    char from[50], to[50];
+    int found = 0;
+
+    while (fscanf(fp, "PNR:%ld Train:%d Coach:%d Seat:%d From:%s To:%s\n",
+                  &f_pnr, &train_no, &coach, &seat, from, to) == 6) {
+        if (f_pnr == pnr) {
+            found = 1;
+            // update linked list availability
+            struct coach* temp_c = t->coaches;
             while (temp_c) {
                 if (temp_c->coach_no == coach) {
                     struct seat* temp_s = temp_c->seats;
                     while (temp_s) {
                         if (temp_s->s_no == seat) {
-                            temp_s->avail = true;  
-                            strcpy(temp_s->from, "");
-                            strcpy(temp_s->to, "");
+                            temp_s->avail = true;
+                            temp_s->from[0] = '\0';
+                            temp_s->to[0] = '\0';
                             break;
                         }
                         temp_s = temp_s->next_s;
                     }
                     break;
                 }
-                 
-            }
                 temp_c = temp_c->next_c;
-                printf("Ticket cancelled successfully");
             }
-            else{
-                fprintf(temp, "PNR:%ld Train:%d Coach:%d Seat:%d From:%s To:%s\n",
-                &f_pnr, &t->train_no, &coach, &seat, &from, &to);
+            printf("Ticket cancelled successfully\n");
+            // don’t write cancelled ticket into file
+        } else {
+            fprintf(temp, "PNR:%ld Train:%d Coach:%d Seat:%d From:%s To:%s\n",
+                    f_pnr, train_no, coach, seat, from, to);
         }
     }
 
     fclose(fp);
     fclose(temp);
-    remove("Passenger details.txt");
-    rename("temp.txt","Passenger details.txt");
-    if(!found){
-        printf("PNR number not exist");
+    remove("Passenger_details.txt");
+    rename("temp.txt", "Passenger_details.txt");
+    if (!found) {
+        printf("PNR number not exist\n");
     }
-
-
+    return t;
 }
+
+
