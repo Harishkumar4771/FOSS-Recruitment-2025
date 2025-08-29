@@ -4,7 +4,7 @@ int main(){
     char from[50];char to[50];
     long pnr;
     int no;
-    struct train* t=NULL;
+    struct train* t=createtrain(50,12);
     addhault(t,"Mumbai CSMT","--","18:00");
     addhault(t,"Dadar","18:22","18:24");
     addhault(t,"Thane","18:40","18:44");

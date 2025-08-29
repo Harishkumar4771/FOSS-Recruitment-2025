@@ -1,0 +1,14 @@
+---
+triple:          'arm64-apple-darwin'
+binary-path:     '/Users/bsharishkumar/FOSS_project/FOSS-Recruitment-2025/projects/HARISH_KUMAR/project'
+relocations:
+  - { offsetInCU: 0x26, offset: 0x26, size: 0x8, addend: 0x0, symName: _generatePNR, symObjAddr: 0x0, symBinAddr: 0x100002DAC, symSize: 0x3C }
+  - { offsetInCU: 0x154, offset: 0x154, size: 0x8, addend: 0x0, symName: _generatePNR, symObjAddr: 0x0, symBinAddr: 0x100002DAC, symSize: 0x3C }
+  - { offsetInCU: 0x17C, offset: 0x17C, size: 0x8, addend: 0x0, symName: _createtrain, symObjAddr: 0x3C, symBinAddr: 0x100002DE8, symSize: 0x1D0 }
+  - { offsetInCU: 0x230, offset: 0x230, size: 0x8, addend: 0x0, symName: _addhault, symObjAddr: 0x20C, symBinAddr: 0x100002FB8, symSize: 0xE8 }
+  - { offsetInCU: 0x2A8, offset: 0x2A8, size: 0x8, addend: 0x0, symName: _timetable, symObjAddr: 0x2F4, symBinAddr: 0x1000030A0, symSize: 0xA0 }
+  - { offsetInCU: 0x2DA, offset: 0x2DA, size: 0x8, addend: 0x0, symName: _bookticket, symObjAddr: 0x394, symBinAddr: 0x100003140, symSize: 0x2A4 }
+  - { offsetInCU: 0x3AD, offset: 0x3AD, size: 0x8, addend: 0x0, symName: _changeboardingpoint, symObjAddr: 0x638, symBinAddr: 0x1000033E4, symSize: 0x22C }
+  - { offsetInCU: 0x477, offset: 0x477, size: 0x8, addend: 0x0, symName: _cancelticket, symObjAddr: 0x864, symBinAddr: 0x100003610, symSize: 0x294 }
+  - { offsetInCU: 0x570, offset: 0x570, size: 0x8, addend: 0x0, symName: _main, symObjAddr: 0xAF8, symBinAddr: 0x1000038A4, symSize: 0x2F4 }
+...

@@ -17,9 +17,9 @@ struct coach{
 
 };
 struct  haults{
-    char* name;
-    char* arrival;
-    char* departure;
+    char name[50];
+    char arrival[6];
+    char departure[6];
     struct haults* next_s;
 };
 struct train{
