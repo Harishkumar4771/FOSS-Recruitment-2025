@@ -14,26 +14,23 @@ I HAVE CREATED A TRAIN SEAT AVAILABILITY MANAGEMENT USING LINKED LIST TO APPLY M
 ---
 
 ## Features
-List the main things your project can do.  
-Example:  
-- Show today's timetable  
-- Remind with notifications  
-- Works offline 
+1-Time table of train
+2-Book tickets
+3-Change boarding point
+4-Cancellation of ticker
 
 ---
 
 ## Tech Stack
-List the tools or languages you used.  
-Example: Python, HTML, CSS, JavaScript, Arduino, etc.
+VS Code
+Project developed in C programming language
 
 ---
 
 ## How to Run
-Explain step by step how to run your project.  
-Example:  
-1. Open the folder in VS Code.  
-2. Run `python main.py`  
-3. The program will start in offline mode.
+1.Open folder in VS Code
+2.Compile it
+3.In VS Code terminal write "gcc project.c" the "./project"
 
 ---
 
@@ -44,38 +41,40 @@ your-project/ ├── README.md ├── src/        # your code ├── do
 ---
 
 ## Demo Screenshot / Output
-Add a screenshot of your project running, or copy-paste sample terminal output here.
+Screenshot of the output
+Refer image output.png
 
 ---
 
 ## AI Tools Used
-List any AI tools you used (if any).  
-Example: ChatGPT, GitHub Copilot, Cursor, Gemini, etc.  
-If not used, write "None".
+ChatGPT,Perplexity and Github Copilot
 
 ---
 
 ## Future Improvements
-Write how you would improve this project if you had more time.  
-Example: Add more features, make a better design, connect to API, etc.
+Since,the project is devoloped based on my knowledge on linked list,the functions
+are written in time Complexity O(n^2),which makes larger inputs slower performance
 
+In future,it will have a GUI as well as functions can be modified with other methods
+with better time and space complexity.
 
 ---
 
 ## Notes for Reviewers
-Any extra note for the FOSS team.  
-Example: "This project runs offline by default." or "Needs an internet connection."
+This project runs offline
+This project is inefficent for larger inputs.
+Code is designed based on normal test cases.
 
 ---
 
 ## Submission Checklist 
 - [x] Cloned the Repository 
-- [ ] Added my details (Name, PRN, Year, Branch)  
-- [ ] Wrote Problem Statement  
-- [ ] Listed Features & Tech Stack  
-- [ ] Added clear Run Instructions  
-- [ ] Provided Demo Output (screenshot or text)  
-- [ ] Listed AI tools used (or None)  
-- [ ] Explained Future Improvements  
-- [ ] Project runs offline
+- [x] Added my details (Name, PRN, Year, Branch)  
+- [x] Wrote Problem Statement  
+- [x] Listed Features & Tech Stack  
+- [x] Added clear Run Instructions  
+- [x] Provided Demo Output (screenshot or text)  
+- [x] Listed AI tools used (or None)  
+- [x] Explained Future Improvements  
+- [x] Project runs offline
 
